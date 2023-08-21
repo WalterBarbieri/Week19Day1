@@ -25,7 +25,7 @@ public class DispositivoService {
 	private UtenteService us;
 
 	public Dispositivo creaDispositivo(DispositivoRequestPayload body) {
-		Dispositivo dispositivo = new Dispositivo(body.getTipo(), body.getStato());
+		Dispositivo dispositivo = new Dispositivo(body.getTipo(), body.getStato(), body.getNumeroSicurezza());
 		if (body.getUtenteId() != null) {
 			Utente utente = us.findById(body.getUtenteId());
 			dispositivo.setUtente(utente);

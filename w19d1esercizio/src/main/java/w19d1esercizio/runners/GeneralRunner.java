@@ -47,7 +47,9 @@ public class GeneralRunner implements CommandLineRunner {
 			Random rnd = new Random();
 			TipoDispositivo rndTipo = TipoDispositivo.values()[rnd.nextInt(TipoDispositivo.values().length)];
 			StatoDispositivo rndStato = StatoDispositivo.values()[rnd.nextInt(StatoDispositivo.values().length)];
-			DispositivoRequestPayload rndDispositivo = new DispositivoRequestPayload(rndTipo, rndStato);
+			String numeroSicurezza = faker.bothify("?#?#?#?#");
+			DispositivoRequestPayload rndDispositivo = new DispositivoRequestPayload(rndTipo, rndStato,
+					numeroSicurezza);
 			int rndInt = rnd.nextInt(100);
 			if (rndInt > 20) {
 				Utente rndUtente = us.rndUtente();

@@ -2,6 +2,9 @@ package w19d1esercizio.dispositivi;
 
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -20,6 +23,7 @@ import w19d1esercizio.utenti.Utente;
 @Getter
 @Setter
 @NoArgsConstructor
+@JsonIgnoreProperties({ "numeroSicurezza" })
 public class Dispositivo {
 
 	@Id
@@ -33,9 +37,13 @@ public class Dispositivo {
 	@JoinColumn(name = "utente_id")
 	private Utente utente;
 
-	public Dispositivo(TipoDispositivo tipo, StatoDispositivo stato) {
+	@Convert(converter = SistemaSicurezzaConverter.class)
+	private String numeroSicurezza;
+
+	public Dispositivo(TipoDispositivo tipo, StatoDispositivo stato, String numeroSicurezza) {
 		this.setTipo(tipo);
 		this.setStato(stato);
+		this.setNumeroSicurezza(numeroSicurezza);
 	}
 
 	@Override

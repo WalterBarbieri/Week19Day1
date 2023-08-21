@@ -28,6 +28,7 @@ public class SecurityConfig {
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/dispositivi/**").authenticated());
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/auth/**").permitAll());
 		http.addFilterBefore(jat, UsernamePasswordAuthenticationFilter.class);
+		http.addFilterBefore(jat, JWTAuthFilter.class);
 		return http.build();
 	}
 
