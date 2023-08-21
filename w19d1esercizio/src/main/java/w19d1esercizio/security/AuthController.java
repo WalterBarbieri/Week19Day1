@@ -41,7 +41,7 @@ public class AuthController {
 	@PostMapping("/login")
 	public ResponseEntity<String> login(@RequestBody UtenteLoginPayload body) {
 		Utente utente = us.findByEmail(body.getEmail());
-		if (body.getPassword().equals(utente.getPassword())) {
+		if (bcrypt.matches(body.getPassword(), utente.getPassword())) {
 			String token = jt.createToken(utente);
 			System.out.println(token);
 			return new ResponseEntity<>(token, HttpStatus.OK);
