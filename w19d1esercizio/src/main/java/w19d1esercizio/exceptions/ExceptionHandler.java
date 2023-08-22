@@ -3,6 +3,7 @@ package w19d1esercizio.exceptions;
 import java.util.Date;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -37,4 +38,11 @@ public class ExceptionHandler {
 		log.error(e.getMessage());
 		return new ErrorsPayload("Errore, non sei autorizzato", new Date());
 	}
+
+	@org.springframework.web.bind.annotation.ExceptionHandler(MethodArgumentNotValidException.class)
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	public ErrorsPayload handleValidationErrors(MethodArgumentNotValidException e) {
+		return new ErrorsPayload(e.getMessage(), new Date());
+	}
+
 }
